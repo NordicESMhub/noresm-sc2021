@@ -53,6 +53,11 @@ if [[ "$TARGET_MACHINE" == '' ]] || [[ "$COMPSET" == '' ]] || [[ "$RES" == '' ]]
   usage
   exit 1 
 fi
+
+# Pull container from quay.io
+
+singularity pull docker://quay.io/nordicesmhub/container-noresm:v2.0.0
+
 for node in {1..8}; do
 
 # Generate SLURM batch script for a given machine
@@ -82,7 +87,9 @@ echo $CASENAME
 mkdir -p $PREFIX/work
 mkdir -p $PREFIX/archive
 
-mpirun -np \$SLURM_NTASKS singularity exec --bind $PREFIX/work:/opt/esm/work,/cluster/shared/noresm/inputdata:/opt/esm/inputdata,$PREFIX/archive:/opt/esm/archive container-noresm_v1.0.0.sif /opt/esm/execute
+singularity exec --bind $PREFIX/work:/opt/esm/work,/cluster/shared/noresm/inputdata:/opt/esm/inputdata,$PREFIX/archive:/opt/esm/archive container-noresm_v2.1.0.sif /opt/esm/prepare
+
+mpirun -np \$SLURM_NTASKS singularity exec --bind $PREFIX/work:/opt/esm/work,/cluster/shared/noresm/inputdata:/opt/esm/inputdata,$PREFIX/archive:/opt/esm/archive container-noresm_v2.1.0.sif /opt/esm/execute
 
 EOF
 

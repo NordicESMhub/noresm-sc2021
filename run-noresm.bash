@@ -43,7 +43,21 @@ while [[ $# -gt 0 ]]; do
     shift
 done
 
+
 if [[ "$TARGET_MACHINE" != '' ]] && [[ "$COMPSET" != '' ]] && [[ "$RES" != '' ]] && [[ "$PROJECT" != '' ]] && [[ "$PREFIX" != '' ]] ; then
+
+    rm -rf $PREFIX/release-noresm2.0.2
+
+    wget https://github.com/NorESMhub/NorESM/archive/refs/tags/release-noresm2.0.2.tar.gz
+
+    tar zxvf release-noresm2.0.2.tar.gz  --directory $PREFIX
+
+    mv $PREFIX/NorESM-release-noresm2.0.2 $PREFIX/release-noresm2.0.2
+    cd $PREFIX/release-noresm2.0.2
+    rm -rf manage_externals
+    git clone -b manic-v1.1.8 https://github.com/ESMCI/manage_externals.git
+    sed -i.bak "s/\'checkout\'/\'checkout\', \'--trust-server-cert\', \'--non-interactive\'/" ./manage_externals/manic/repository_svn.py
+    ./manage_externals/checkout_externals -v
 
     for node in {1..8}; do
         export JOB_NUM_NODES=$node
