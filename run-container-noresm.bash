@@ -86,13 +86,13 @@ echo $CASENAME
 #
 mkdir -p $PREFIX/work
 mkdir -p $PREFIX/archive
+mkdir -p $HOME/.cime
 
 singularity exec --bind $PREFIX/work:/opt/esm/work,/cluster/shared/noresm/inputdata:/opt/esm/inputdata,$PREFIX/archive:/opt/esm/archive container-noresm_v2.0.0.sif /opt/esm/prepare
 
 mpirun -np \$SLURM_NTASKS singularity exec --bind $PREFIX/work:/opt/esm/work,/cluster/shared/noresm/inputdata:/opt/esm/inputdata,$PREFIX/archive:/opt/esm/archive container-noresm_v2.0.0.sif /opt/esm/execute
 
 EOF
-
 
 sbatch noresm-singularity_$node.job 
 
