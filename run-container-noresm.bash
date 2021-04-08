@@ -87,9 +87,9 @@ echo $CASENAME
 mkdir -p $PREFIX/work
 mkdir -p $PREFIX/archive
 
-singularity exec --bind $PREFIX/work:/opt/esm/work,/cluster/shared/noresm/inputdata:/opt/esm/inputdata,$PREFIX/archive:/opt/esm/archive container-noresm_v2.1.0.sif /opt/esm/prepare
+singularity exec --bind $PREFIX/work:/opt/esm/work,/cluster/shared/noresm/inputdata:/opt/esm/inputdata,$PREFIX/archive:/opt/esm/archive container-noresm_v2.0.0.sif /opt/esm/prepare
 
-mpirun -np \$SLURM_NTASKS singularity exec --bind $PREFIX/work:/opt/esm/work,/cluster/shared/noresm/inputdata:/opt/esm/inputdata,$PREFIX/archive:/opt/esm/archive container-noresm_v2.1.0.sif /opt/esm/execute
+mpirun -np \$SLURM_NTASKS singularity exec --bind $PREFIX/work:/opt/esm/work,/cluster/shared/noresm/inputdata:/opt/esm/inputdata,$PREFIX/archive:/opt/esm/archive container-noresm_v2.0.0.sif /opt/esm/execute
 
 EOF
 
