@@ -1,4 +1,7 @@
 # noresm-sc2021
+
+[![DOI](https://zenodo.org/badge/355953111.svg)](https://zenodo.org/badge/latestdoi/355953111)
+
 Scripts for running all NorESM experiments for SC2021
 
 - Clone this repository:
